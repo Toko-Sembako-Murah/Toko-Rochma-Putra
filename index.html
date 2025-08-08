@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toko Rochma Putra</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    header img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+    }
+    nav {
+      background-color: #28a745;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    section { padding: 20px; }
+    .produk-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .produk-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      width: 45%;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    }
+    .produk-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .btn-beli {
+      background-color: green;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    #produk, #keranjang {
+      display: none;
+    }
+    .hapus-btn {
+      color: red;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .qty-btn.btn-sm {
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+    .qty-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="p.png" alt="">
+  </header>
+
+  <nav>
+    <a href="#" onclick="tampilkan('beranda')">Beranda</a>
+    <a href="#" onclick="tampilkan('produk')">Produk</a>
+    <a href="#" onclick="tampilkan('keranjang')">Keranjang</a>
+  </nav>
+
+  <section id="beranda">
+    <h1><b>Sembako Rochma Putra: Kebutuhan Pokok Lengkap, Harga Hemat!</b></h1>
+    <p>Selamat datang di Sembako Rochma Putra, solusi belanja kebutuhan pokok Anda tanpa menguras uang yang ada. Kami menyediakan berbagai pilihan sembako berkualitas dengan harga terbaik.</p>
+    <h3><b>Kenapa Harus Belanja di Sembako Rochma Putra?</b></h3>
+    <p><b>Pilihan Lengkap dan Berkualitas</b></p>
+    <p>Kami menawarkan beragam produk sembako, mulai dari beras, minyak goreng, gula, telur, hingga tepung. Semua produk dijamin murah dan berkualitas untuk memenuhi kebutuhan harian Anda.</p>
+    <p><b>Harga Murah, Belanja Hemat</b></p>
+    <p>Kami memberikan harga yang paling terjangkau. Belanja kebutuhan pokok kini tak lagi menguras dompet.</p>
+    <p><b>Gratis Ongkir Sampai Depan Rumah</b></p>
+    <p>Nikmati kemudahan berbelanja tanpa biaya tambahan. Kami mengantarkan pesanan Anda secara gratis hingga ke rumah, membuat pengalaman belanja Anda semakin nyaman dan praktis.</p>
+    <p><b>Cara Pesan Mudah</b></p>
+    <ol>
+      <li>Pilih Produk: Jelajahi katalog produk kami dan tambahkan ke keranjang.</li>
+      <li>Isi Data: Masukkan alamat pengiriman Anda.</li>
+      <li>Bayar: Selesaikan pembayaran dengan mudah.</li>
+      <li>Pesanan Diantar: Kami akan mengantar pesanan Anda sampai depan rumah dengan gratis!</li>
+    </ol>
+    <p>Silakan lihat produk-produk kami dan rasakan sendiri kemudahan berbelanja sembako di Sembako Rochma Putra!</p>
+  </section>
+
+  <section id="produk">
+    <h2>Daftar Produk</h2>
+    <input type="text" id="pencarianProduk" class="form-control mb-3" placeholder="Cari produk..." onkeyup="filterProduk()">
+    <div class="produk-list" id="daftarProdukList">
+      <div class="produk-item">
+        <img src="1.jpg" alt="Beras pinpin 5kg">
+        <h4>Beras pinpin 5kg</h4>
+        <p>Rp80.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Beras pinpin 5kg', 80000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="2.jpg" alt="Beras Pelikan 5kg">
+        <h4>Beras Pelikan 5kg</h4>
+        <p>Rp80.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Beras Pelikan 5kg', 80000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="3.jpg" alt="Beras Lahap 5kg">
+        <h4>Beras Lahap 5kg</h4>
+        <p>Rp75.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Beras Lahap 5kg', 75000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="4.jpg" alt="Beras Putra Kembar">
+        <h4>Beras Putra Kembar</h4>
+        <p>Rp75.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Beras Putra Kembar', 75000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="5.jpg" alt="Minyak Rizky Botol 1L">
+        <h4>Minyak Rizky Botol 1L</h4>
+        <p>Rp16.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Rizky Botol 1L', 16500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="6.jpg" alt="Minyak Filma 2L">
+        <h4>Minyak Filma 2L</h4>
+        <p>Rp38.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Filma 2L', 38000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="7.png" alt="Minyak Sanco 2L">
+        <h4>Minyak Sanco 2L</h4>
+        <p>Rp40.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Sanco 2L', 40000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="8.jpg" alt="Minyak Kita 1L">
+        <h4>Minyak Kita 1L</h4>
+        <p>Rp17.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Kita 1L', 17000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="9.jpg" alt="Minyak Kita 2L">
+        <h4>Minyak Kita 2L</h4>
+        <p>Rp34.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Kita 2L', 34000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="10.jpg" alt="Gula Rose Brand 1kg">
+        <h4>Gula Rose Brand 1kg</h4>
+        <p>Rp17.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Gula Rose Brand 1kg', 17500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="11.jpg" alt="Aneka Mie">
+        <h4>Aneka Mie</h4>
+        <p>Rp3.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Aneka Mie', 3000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="12.jpg" alt="Aneka Mie 1 Dus">
+        <h4>Aneka Mie 1 Dus</h4>
+        <p>Rp114.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Aneka Mie 1 Dus', 114000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="13.png" alt="Telur 1kg">
+        <h4>Telur 1kg</h4>
+        <p>Rp28.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Telur 1kg', 28000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="14.jpg" alt="Tepung Crispy Kriuk">
+        <h4>Tepung Crispy Kriuk</h4>
+        <p>Rp2.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tepung Crispy Kriuk', 2500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="15.jpg" alt="Tepung Cakra Hijau 1kg">
+        <h4>Tepung Cakra Hijau 1kg</h4>
+        <p>Rp12.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tepung Cakra Hijau 1kg', 12000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="16.jpg" alt="Mie Kenduri">
+        <h4>Mie Kenduri</h4>
+        <p>Rp14.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Mie Kenduri', 14000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="17.jpg" alt="Kecap ABC 685ml">
+        <h4>Kecap ABC 685ml</h4>
+        <p>Rp19.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kecap ABC 685ml', 19000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="18.jpg" alt="Kecap Sedap 725ml bonus piring">
+        <h4>Kecap Sedap 725ml bonus piring</h4>
+        <p>Rp19.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kecap Sedap 725ml bonus piring', 19000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="19.jpg" alt="Kecap Bango 700ml">
+        <h4>Kecap Bango 700ml</h4>
+        <p>Rp22.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kecap Bango 700ml', 22000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="20.jpg" alt="Kecap Indoofood 520ml">
+        <h4>Kecap Indoofood 520ml</h4>
+        <p>Rp16.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kecap Indoofood 520ml', 16000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="21.jpg" alt="Saus Sambal Del Monte Extra Hot 1kg">
+        <h4>Saus Sambal Del Monte Extra Hot 1kg</h4>
+        <p>Rp23.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Saus Sambal Del Monte Extra Hot 1kg', 23000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="22.jpg" alt="Saus Tomat Del Monte 1kg">
+        <h4>Saus Tomat Del Monte 1kg</h4>
+        <p>Rp16.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Saus Tomat Del Monte 1kg', 16000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="23.jpg" alt="Masako 1 renteng isi 12">
+        <h4>Masako 1 renteng isi 12</h4>
+        <p>Rp5.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Masako 1 renteng isi 12', 5000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="24.jpg" alt="Royco 1 renteng isi 12">
+        <h4>Royco 1 renteng isi 12</h4>
+        <p>Rp5.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Royco 1 renteng isi 12', 5000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="25.jpg" alt="Kara Santan">
+        <h4>Kara Santan</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kara Santan', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="26.jpg" alt="Saori Saus Tiram 270ml">
+        <h4>Saori Saus Tiram 270ml</h4>
+        <p>Rp19.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Saori Saus Tiram 270ml', 19000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="27.png" alt="Sarden">
+        <h4>Sarden</h4>
+        <p>Rp19.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sarden', 19000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="28.jpg" alt="Tepung Beras Rose Brand 500gr">
+        <h4>Tepung Beras Rose Brand 500gr</h4>
+        <p>Rp7.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tepung Beras Rose Brand 500gr', 7500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="29.jpg" alt="Tepung Tapioka Rose Brand 500gr">
+        <h4>Tepung Tapioka Rose Brand 500gr</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tepung Tapioka Rose Brand 500gr', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="30.jpg" alt="Saus Sambal Indoofood 135ml">
+        <h4>Saus Sambal Indoofood 135ml</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Saus Sambal Indoofood 135ml', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="31.jpg" alt="Saus Tomat Indoofood 135ml">
+        <h4>Saus Tomat Indoofood 135ml</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Saus Tomat Indoofood 135ml', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="32.png" alt="Mie Bihun Padamu">
+        <h4>Mie Bihun Padamu</h4>
+        <p>Rp7.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Mie Bihun Padamu', 7000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="33.jpg" alt="Garam Cap Kapal 500gr">
+        <h4>Garam Cap Kapal 500gr</h4>
+        <p>Rp4.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Garam Cap Kapal 500gr', 4500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="34.jpg" alt="Garam Cap Kapal 250gr">
+        <h4>Garam Cap Kapal 250gr</h4>
+        <p>Rp2.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Garam Cap Kapal 250gr', 2500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="35.jpg" alt="Air Minum Club 1Dus">
+        <h4>Air Minum Club 1Dus</h4>
+        <p>Rp22.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Air Minum Club 1Dus', 22000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="36.jpg" alt="Air Minum Club Mini 1Dus">
+        <h4>Air Minum Club Mini 1Dus</h4>
+        <p>Rp12.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Air Minum Club Mini 1Dus', 12000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="37.jpg" alt="Energen Berbagai Rasa 1 Renteng">
+        <h4>Energen Berbagai Rasa 1 Renteng</h4>
+        <p>Rp17.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Energen Berbagai Rasa 1 Renteng', 17500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="38.jpg" alt="Milo 1 Renteng">
+        <h4>Milo 1 Renteng</h4>
+        <p>Rp18.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Milo 1 Renteng', 18000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="39.jpg" alt="Air Minum Cleo Kecil 1dus">
+        <h4>Air Minum Cleo Kecil 1dus</h4>
+        <p>Rp19.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Air Minum Cleo Kecil 1dus', 19000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="40.jpg" alt="Susu Frisian Flag 1Renteng">
+        <h4>Susu Frisian Flag 1Renteng</h4>
+        <p>Rp8.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Susu Frisian Flag 1Renteng', 8500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="41.jpg" alt="Kopi Luwak White Coffe 1Renteng">
+        <h4>Kopi Luwak White Coffe 1Renteng</h4>
+        <p>Rp14.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kopi Luwak White Coffe 1Renteng', 14500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="42.jpg" alt="Kopi ABC Susu 1Renteng">
+        <h4>Kopi ABC Susu 1Renteng</h4>
+        <p>Rp17.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kopi ABC Susu 1Renteng', 17500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="43.jpg" alt="Kopi Luwak Murni Beli 1 Gratis 1">
+        <h4>Kopi Luwak Murni Beli 1 Gratis 1</h4>
+        <p>Rp14.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kopi Luwak Murni Beli 1 Gratis 1', 14500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="44.jpg" alt="Kopi Ya! 60gr">
+        <h4>Kopi Ya! 60gr</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kopi Ya! 60gr', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="45.jpg" alt="Air Minum Aqua 1.5L">
+        <h4>Air Minum Aqua 1.5L</h4>
+        <p>Rp5.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Air Minum Aqua 1.5L', 5000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="46.jpg" alt="Air Minum Aqua 600ml">
+        <h4>Air Minum Aqua 600ml</h4>
+        <p>Rp2.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Air Minum Aqua 600ml', 2500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="47.jpg" alt="Teh Pucuk">
+        <h4>Teh Pucuk</h4>
+        <p>Rp3.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Teh Pucuk', 3000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="48.png" alt="Larutan Adem Sari Kaleng">
+        <h4>Larutan Adem Sari Kaleng</h4>
+        <p>Rp6.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Larutan Adem Sari Kaleng', 6500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="49.jpg" alt="Larutan Cap Kaki Tiga Kaleng">
+        <h4>Larutan Cap Kaki Tiga Kaleng</h4>
+        <p>Rp6.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Larutan Cap Kaki Tiga Kaleng', 6500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="50.jpg" alt="Larutan Cap Kaki Tiga Botol 500ml">
+        <h4>Larutan Cap Kaki Tiga Botol 500ml</h4>
+        <p>Rp7.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Larutan Cap Kaki Tiga Botol 500ml', 7000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="27.png" alt="Sarden">
+        <h4>Sarden</h4>
+        <p>Rp19.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sarden', 19000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="52.jpg" alt="Kopi Kapal Api Mix 1Renteng">
+        <h4>Kopi Kapal Api Mix 1Renteng</h4>
+        <p>Rp17.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kopi Kapal Api Mix 1Renteng', 17500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="53.jpg" alt="Good Day Freezee 1Renteng">
+        <h4>Good Day Freezee 1Renteng</h4>
+        <p>Rp23.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Good Day Freezee 1Renteng', 23000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="54.jpg" alt="Good Day Cappucino 1Renteng">
+        <h4>Good Day Cappucino 1Renteng</h4>
+        <p>Rp23.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Good Day Cappucino 1Renteng', 23000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="55.jpg" alt="Teh Celup Villa">
+        <h4>Teh Celup Villa</h4>
+        <p>Rp7.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Teh Celup Villa', 7000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="56.jpg" alt="Kopi Mix Indocoffe 1Renteng">
+        <h4>Kopi Mix Indocoffe 1Renteng</h4>
+        <p>Rp16.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kopi Mix Indocoffe 1Renteng', 16500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="57.jpg" alt="Susu Frisian Flag Kemasan Ekonomis">
+        <h4>Susu Frisian Flag Kemasan Ekonomis</h4>
+        <p>Rp15.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Susu Frisian Flag Kemasan Ekonomis', 15000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="58.jpg" alt="Susu Indomilk Botol 180ml">
+        <h4>Susu Indomilk Botol 180ml</h4>
+        <p>Rp3.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Susu Indomilk Botol 180ml', 3500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="59.jpg" alt="Susu Ultra Milk Kotak 125ml">
+        <h4>Susu Ultra Milk Kotak 125ml</h4>
+        <p>Rp2.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Susu Ultra Milk Kotak 125ml', 2500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="60.jpg" alt="Pocari Sweet 500ml">
+        <h4>Pocari Sweet 500ml</h4>
+        <p>Rp7.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Pocari Sweet 500ml', 7000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="61.png" alt="You C-1000">
+        <h4>You C-1000</h4>
+        <p>Rp6.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('You C-1000', 6500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="62.jpg">
+        <h4>Shampoo Zink Refresing Cool Green Tea 170ml</h4>
+        <p>Rp16.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Shampoo Zink Refresing Cool Green Tea 170ml', 16000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="63.jpg" alt="Tisu Nice">
+        <h4>Tisu Nice</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tisu Nice', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="64.jpg" alt="Tisu Jolly">
+        <h4>Tisu Jolly</h4>
+        <p>Rp7.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tisu Jolly', 7500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="65.jpg" alt="Pepsodent 225gr">
+        <h4>Pepsodent 225gr</h4>
+        <p>Rp13.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Pepsodent 225gr', 13000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="66.jpg" alt="Baygon 600ml">
+        <h4>Baygon 600ml</h4>
+        <p>Rp33.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Baygon 600ml', 33000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="67.png" alt="Hit 600ml">
+        <h4>Hit 600ml</h4>
+        <p>Rp32.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Hit 600ml', 32000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="68.jpg" alt="Plastik Cap Tikus 1/2kg">
+        <h4>Plastik Cap Tikus 1/2kg</h4>
+        <p>Rp2.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Plastik Cap Tikus 1/2kg', 2000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="69.jpg" alt="Tisu See U">
+        <h4>Tisu See U</h4>
+        <p>Rp10.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Tisu See U', 10500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="70.jpg" alt="Rexona">
+        <h4>Rexona</h4>
+        <p>Rp15.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Rexona', 15000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="71.jpg" alt="Nivea Men(Rexona)">
+        <h4>Nivea Men(Rexona)</h4>
+        <p>Rp16.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Nivea Men(Rexona)', 16000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="72.jpg" alt="Pengharum Toilet Swallow Ball Isi 5">
+        <h4>Pengharum Toilet Swallow Ball Isi 5</h4>
+        <p>Rp20.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Pengharum Toilet Swallow Ball Isi 5', 20000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="73.jpg" alt="Sabun Mandi Harmony">
+        <h4>Sabun Mandi Harmony</h4>
+        <p>Rp2.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Harmony', 2500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="74.jpg" alt="Sabun Cuci Piring Sunlight 660ml">
+        <h4>Sabun Cuci Piring Sunlight 660ml</h4>
+        <p>Rp10.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Piring Sunlight 660ml', 10000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="75.jpg" alt="Sabun Cuci piring Sunlight 910ml">
+        <h4>Sabun Cuci piring Sunlight 910ml</h4>
+        <p>Rp14.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci piring Sunlight 910ml', 14000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="76.jpg" alt="Pewangi Pakaian Kisprey Reffil">
+        <h4>Pewangi Pakaian Kisprey Reffil</h4>
+        <p>Rp5.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Pewangi Pakaian Kisprey Reffil', 5500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="77.png" alt="Sabun Pembersih Kaca Cling 400ml">
+        <h4>Sabun Pembersih Kaca Cling 400ml</h4>
+        <p>Rp4.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Pembersih Kaca Cling 400ml', 4000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="78.jpg" alt="Kertas Minyak Cap Gajah 1Bungkus">
+        <h4>Kertas Minyak Cap Gajah 1Bungkus</h4>
+        <p>Rp21.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kertas Minyak Cap Gajah 1Bungkus', 21000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="79.jpg" alt="Kapas Wajah Selection 50gr">
+        <h4>Kapas Wajah Selection 50gr</h4>
+        <p>Rp7.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Kapas Wajah Selection 50gr', 7500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="80.jpg" alt="Sabun Mandi Cair Biore 400ml">
+        <h4>Sabun Mandi Cair Biore 400ml</h4>
+        <p>Rp18.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Cair Biore 400ml', 18000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="81.jpg" alt="Sabun Mandi Cair Nuvo 825ml">
+        <h4>Sabun Mandi Cair Nuvo 825ml</h4>
+        <p>Rp29.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Cair Nuvo 825ml', 29000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="82.jpg" alt="Minyak Telon MyBaby 150ml">
+        <h4>Minyak Telon MyBaby 150ml</h4>
+        <p>Rp32.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Telon MyBaby 150ml', 32000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="83.jpg" alt="Sikat Gigi Anak Kodomo">
+        <h4>Sikat Gigi Anak Kodomo</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sikat Gigi Anak Kodomo', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="84.png" alt="Frash Care">
+        <h4>Frash Care</h4>
+        <p>Rp11.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Frash Care', 11500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="85.jpg" alt="Minyak Kayu Putih 60ml">
+        <h4>Minyak Kayu Putih 60ml</h4>
+        <p>Rp19.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Kayu Putih 60ml', 19500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="86.webp" alt="Pewangi Pakaian Rapika 300ml">
+        <h4>Pewangi Pakaian Rapika 300ml</h4>
+        <p>Rp4.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Pewangi Pakaian Rapika 300ml', 4500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="87.jpg" alt="Plastik Cap Jeruk 1/5kg">
+        <h4>Plastik Cap Jeruk 1/5kg</h4>
+        <p>Rp6.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Plastik Cap Jeruk 1/5kg', 6000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="88.jpg" alt="Plastik Cap Tomat 1/5kg">
+        <h4>Plastik Cap Tomat 1/5kg</h4>
+        <p>Rp9.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Plastik Cap Tomat 1/5kg', 9000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="89.jpg" alt="Sabun Mandi Lux">
+        <h4>Sabun Mandi Lux</h4>
+        <p>Rp4.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Lux', 4500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="90.jpg" alt="Sabun Cuci Piring Mama Lemon 680ml">
+        <h4>Sabun Cuci Piring Mama Lemon 680ml</h4>
+        <p>Rp8.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Piring Mama Lemon 680ml', 8500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="91.png" alt="Sabun Cuci Piring Mama Lemon 950ml">
+        <h4>Sabun Cuci Piring Mama Lemon 950ml</h4>
+        <p>Rp13.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Piring Mama Lemon 950ml', 13000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="92.jpg" alt="Pewangi So Klin 780ml">
+        <h4>Pewangi So Klin 780ml</h4>
+        <p>Rp9.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Pewangi So Klin 780ml', 9000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="93.jpg" alt="Sabun Mandi Shinzui">
+        <h4>Sabun Mandi Shinzui</h4>
+        <p>Rp4.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Shinzui', 4500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="94.jpg" alt="Sabun Mandi Lervia">
+        <h4>Sabun Mandi Lervia</h4>
+        <p>Rp3.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Lervia', 3500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="95.jpg" alt="Sabun Mandi Dettol">
+        <h4>Sabun Mandi Dettol</h4>
+        <p>Rp7.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Dettol', 7000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="96.jpg" alt="Sabun Mandi Baby Zwitsal">
+        <h4>Sabun Mandi Baby Zwitsal</h4>
+        <p>Rp5.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Baby Zwitsal', 5000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="97.jpg" alt="Sabun Cuci Baju Soklin Liquid 700ml">
+        <h4>Sabun Cuci Baju Soklin Liquid 700ml</h4>
+        <p>Rp15.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju Soklin Liquid 700ml', 15000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="98.jpg" alt="Sabun Mandi Zen Paket Isi 4">
+        <h4>Sabun Mandi Zen Paket Isi 4</h4>
+        <p>Rp11.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Zen Paket Isi 4', 11500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="99.png" alt="Sabun Mandi Nuvo">
+        <h4>Sabun Mandi Nuvo</h4>
+        <p>Rp3.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Nuvo', 3000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="100.jpg" alt="Sabun Mandi Giv">
+        <h4>Sabun Mandi Giv</h4>
+        <p>Rp3.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Giv', 3000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="101.jpg" alt="Sabun Mandi Cair Shinzui">
+        <h4>Sabun Mandi Cair Shinzui</h4>
+        <p>Rp18.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Mandi Cair Shinzui', 18000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="102.jpg" alt="Sabun Cuci Baju Bubuk Daia 1.5kg">
+        <h4>Sabun Cuci Baju Bubuk Daia 1.5kg</h4>
+        <p>Rp25.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju Bubuk Daia 1.5kg', 25000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="103.jpg" alt="Sabun Cuci Baju Bubuk So Klin Detergen 1.5kg">
+        <h4>Sabun Cuci Baju Bubuk So Klin Detergen 1.5kg</h4>
+        <p>Rp26.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju Bubuk So Klin Detergen 1.5kg', 26000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="104.jpg" alt="Sabun Pemutih Pakaian Proclin 1Renteng">
+        <h4>Sabun Pemutih Pakaian Proclin 1Renteng</h4>
+        <p>Rp11.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Pemutih Pakaian Proclin 1Renteng', 11000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="105.jpg" alt="Sabun Cuci Baju So Klin Liquid Nature 700ml">
+        <h4>Sabun Cuci Baju So Klin Liquid Nature 700ml</h4>
+        <p>Rp14.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju So Klin Liquid Nature 700ml', 14500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="106.jpg" alt="Sabun Cuci Baju Rinso Cair 510ml">
+        <h4>Sabun Cuci Baju Rinso Cair 510ml</h4>
+        <p>Rp12.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju Rinso Cair 510ml', 12000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="107.jpg" alt="Cotton Bud">
+        <h4>Cotton Bud</h4>
+        <p>Rp14.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Cotton Bud', 14500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="108.jpg" alt="Sabun Cuci Baju Rinso 1 Renteng">
+        <h4>Sabun Cuci Baju Rinso 1 Renteng</h4>
+        <p>Rp5.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju Rinso 1 Renteng', 5500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="109.jpg" alt="Sabun Cuci Baju So Klin 1 Renteng">
+        <h4>Sabun Cuci Baju So Klin 1 Renteng</h4>
+        <p>Rp5.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju So Klin 1 Renteng', 5500)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="110.jpg" alt="Sabun Cuci Baju Daia 1 Renteng">
+        <h4>Sabun Cuci Baju Daia 1 Renteng</h4>
+        <p>Rp5.500</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Sabun Cuci Baju Daia 1 Renteng', 5500)">🛒 Beli</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="keranjang">
+    <h2>Keranjang Belanja</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Harga Satuan</th>
+          <th>Jumlah</th>
+          <th>Subtotal</th>
+          <th>Hapus</th>
+        </tr>
+      </thead>
+      <tbody id="daftarKeranjang"></tbody>
+    </table>
+    <p><b>Total: Rp<span id="totalHarga">0</span></b></p>
+    <p>Silakan <b>screenshoot</b> dan <b>hubungi kami via WhatsApp</b> untuk melakukan pembayaran ( Bisa COD/TRANSFER ):</p>
+    <a id="link-wa" target="_blank" class="btn btn-success">Hubungi WhatsApp</a>
+  </section>
+
+  <script>
+    let keranjang = [];
+    let total = 0;
+
+    function tampilkan(bagian) {
+      document.getElementById('beranda').style.display = 'none';
+      document.getElementById('produk').style.display = 'none';
+      document.getElementById('keranjang').style.display = 'none';
+      document.getElementById(bagian).style.display = 'block';
+    }
+
+    function tambahKeKeranjang(nama, harga) {
+      const existingIndex = keranjang.findIndex(item => item.nama === nama);
+      if (existingIndex !== -1) {
+        keranjang[existingIndex].jumlah += 1;
+      } else {
+        keranjang.push({ nama, harga, jumlah: 1 });
+      }
+      updateKeranjang();
+      tampilkan('keranjang');
+    }
+
+    function hapusItem(index) {
+      keranjang.splice(index, 1);
+      updateKeranjang();
+    }
+
+    function ubahJumlahKeranjang(index, delta) {
+      keranjang[index].jumlah += delta;
+      if (keranjang[index].jumlah < 1) keranjang[index].jumlah = 1;
+      updateKeranjang();
+    }
+
+    function updateKeranjang() {
+      const daftar = document.getElementById('daftarKeranjang');
+      daftar.innerHTML = '';
+      total = 0;
+      let pesan = 'Halo saya ingin memesan produk:%0A';
+
+      keranjang.forEach((item, index) => {
+        const subtotal = item.harga * item.jumlah;
+        total += subtotal;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.nama}</td>
+          <td>Rp${item.harga}</td>
+          <td>
+            <div class="qty-container">
+              <button class="qty-btn btn-sm" onclick="ubahJumlahKeranjang(${index}, -1)">-</button>
+              <span>${item.jumlah}</span>
+              <button class="qty-btn btn-sm" onclick="ubahJumlahKeranjang(${index}, 1)">+</button>
+            </div>
+          </td>
+          <td>Rp${subtotal}</td>
+          <td><span class="hapus-btn" onclick="hapusItem(${index})">🗑️</span></td>
+        `;
+        daftar.appendChild(row);
+        pesan += `- ${item.nama} x ${item.jumlah} = Rp${subtotal}%0A`;
+      });
+
+      document.getElementById('totalHarga').textContent = total;
+      pesan += `Total: Rp${total}`;
+      document.getElementById('link-wa').href = "https://wa.me/6281330753605?text=" + pesan;
+    }
+
+    function filterProduk() {
+      const input = document.getElementById('pencarianProduk');
+      const filter = input.value.toLowerCase();
+      const produkList = document.getElementById('daftarProdukList');
+      const produkItems = produkList.getElementsByClassName('produk-item');
+
+      for (let i = 0; i < produkItems.length; i++) {
+        const namaProduk = produkItems[i].querySelector('h4').textContent;
+        if (namaProduk.toLowerCase().indexOf(filter) > -1) {
+          produkItems[i].style.display = "";
+        } else {
+          produkItems[i].style.display = "none";
+        }
+      }
+    }
+
+    tampilkan('beranda');
+  </script>
+</body>
+</html>
