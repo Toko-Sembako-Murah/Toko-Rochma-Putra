@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toko Rochma Putra</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    header img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+    }
+    nav {
+      background-color: #28a745;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    section { padding: 20px; }
+    .produk-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .produk-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      width: 45%;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    }
+    .produk-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .btn-beli {
+      background-color: green;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    #produk, #keranjang {
+      display: none;
+    }
+    .hapus-btn {
+      color: red;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .qty-btn.btn-sm {
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+    .qty-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="p.png" alt="">
+  </header>
+
+  <nav>
+    <a href="#" onclick="tampilkan('beranda')">Beranda</a>
+    <a href="#" onclick="tampilkan('produk')">Produk</a>
+    <a href="#" onclick="tampilkan('keranjang')">Keranjang</a>
+  </nav>
+
+  <section id="beranda">
+    <h1><b>Sembako Rochma Putra: Kebutuhan Pokok Lengkap, Harga Hemat!</b></h1>
+    <p>Selamat datang di Sembako Rochma Putra, solusi belanja kebutuhan pokok Anda tanpa menguras uang yang ada. Kami menyediakan berbagai pilihan sembako berkualitas dengan harga terbaik.</p>
+    <h3><b>Kenapa Harus Belanja di Sembako Rochma Putra?</b></h3>
+    <p><b>Pilihan Lengkap dan Berkualitas</b></p>
+    <p>Kami menawarkan beragam produk sembako, mulai dari beras, minyak goreng, gula, telur, hingga tepung. Semua produk dijamin murah dan berkualitas untuk memenuhi kebutuhan harian Anda.</p>
+    <p><b>Harga Murah, Belanja Hemat</b></p>
+    <p>Kami memberikan harga yang paling terjangkau. Belanja kebutuhan pokok kini tak lagi menguras dompet.</p>
+    <p><b>Gratis Ongkir Sampai Depan Rumah</b></p>
+    <p>Nikmati kemudahan berbelanja tanpa biaya tambahan. Kami mengantarkan pesanan Anda secara gratis hingga ke rumah, membuat pengalaman belanja Anda semakin nyaman dan praktis.</p>
+    <p><b>Cara Pesan Mudah</b></p>
+    <ol>
+      <li>Pilih Produk: Jelajahi katalog produk kami dan tambahkan ke keranjang.</li>
+      <li>Isi Data: Masukkan alamat pengiriman Anda.</li>
+      <li>Bayar: Selesaikan pembayaran dengan mudah.</li>
+      <li>Pesanan Diantar: Kami akan mengantar pesanan Anda sampai depan rumah dengan gratis!</li>
+    </ol>
+    <p>Silakan lihat produk-produk kami dan rasakan sendiri kemudahan berbelanja sembako di Sembako Rochma Putra!</p>
+  </section>
+
+  <section id="produk">
+    <h2>Daftar Produk</h2>
+    <div class="produk-list">
+      <div class="produk-item">
+        <img src="https://i.ibb.co/SNhx6Cj/beras.jpg" alt="Beras">
+        <h4>Beras 5kg</h4>
+        <p>Rp65.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Beras 5kg', 65000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="https://i.ibb.co/ckX0v1h/minyak.jpg" alt="Minyak">
+        <h4>Minyak Goreng 1L</h4>
+        <p>Rp18.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Minyak Goreng 1L', 18000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="https://i.ibb.co/gZGtBfj/gula.jpg" alt="Gula Pasir">
+        <h4>Gula Pasir 1kg</h4>
+        <p>Rp15.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Gula Pasir 1kg', 15000)">🛒 Beli</button>
+      </div>
+      <div class="produk-item">
+        <img src="https://i.ibb.co/CM6TtMC/telur.jpg" alt="Telur Ayam">
+        <h4>Telur Ayam 1kg</h4>
+        <p>Rp27.000</p>
+        <button class="btn-beli" onclick="tambahKeKeranjang('Telur Ayam 1kg', 27000)">🛒 Beli</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="keranjang">
+    <h2>Keranjang Belanja</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Harga Satuan</th>
+          <th>Jumlah</th>
+          <th>Subtotal</th>
+          <th>Hapus</th>
+        </tr>
+      </thead>
+      <tbody id="daftarKeranjang"></tbody>
+    </table>
+    <p><b>Total: Rp<span id="totalHarga">0</span></b></p>
+    <p>Silakan <b>screenshoot</b> dan <b>hubungi kami via WhatsApp</b> untuk melakukan pembayaran ( Bisa COD/TRANSFER ):</p>
+    <a id="link-wa" target="_blank" class="btn btn-success">Hubungi WhatsApp</a>
+  </section>
+
+  <script>
+    let keranjang = [];
+    let total = 0;
+
+    function tampilkan(bagian) {
+      document.getElementById('beranda').style.display = 'none';
+      document.getElementById('produk').style.display = 'none';
+      document.getElementById('keranjang').style.display = 'none';
+      document.getElementById(bagian).style.display = 'block';
+    }
+
+    function tambahKeKeranjang(nama, harga) {
+      const existingIndex = keranjang.findIndex(item => item.nama === nama);
+      if (existingIndex !== -1) {
+        keranjang[existingIndex].jumlah += 1;
+      } else {
+        keranjang.push({ nama, harga, jumlah: 1 });
+      }
+      updateKeranjang();
+      tampilkan('keranjang');
+    }
+
+    function hapusItem(index) {
+      total -= keranjang[index].harga * keranjang[index].jumlah;
+      keranjang.splice(index, 1);
+      updateKeranjang();
+    }
+
+    function ubahJumlahKeranjang(index, delta) {
+      keranjang[index].jumlah += delta;
+      if (keranjang[index].jumlah < 1) keranjang[index].jumlah = 1;
+      updateKeranjang();
+    }
+
+    function updateKeranjang() {
+      const daftar = document.getElementById('daftarKeranjang');
+      daftar.innerHTML = '';
+      total = 0;
+      let pesan = 'Halo saya ingin memesan produk:%0A';
+
+      keranjang.forEach((item, index) => {
+        const subtotal = item.harga * item.jumlah;
+        total += subtotal;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.nama}</td>
+          <td>Rp${item.harga}</td>
+          <td>
+            <div class="qty-container">
+              <button class="qty-btn btn-sm" onclick="ubahJumlahKeranjang(${index}, -1)">-</button>
+              <span>${item.jumlah}</span>
+              <button class="qty-btn btn-sm" onclick="ubahJumlahKeranjang(${index}, 1)">+</button>
+            </div>
+          </td>
+          <td>Rp${subtotal}</td>
+          <td><span class="hapus-btn" onclick="hapusItem(${index})">🗑️</span></td>
+        `;
+        daftar.appendChild(row);
+        pesan += `- ${item.nama} x ${item.jumlah} = Rp${subtotal}%0A`;
+      });
+
+      document.getElementById('totalHarga').textContent = total;
+      pesan += `Total: Rp${total}`;
+      document.getElementById('link-wa').href = "https://wa.me/6281330753605?text=" + pesan;
+    }
+
+    tampilkan('beranda');
+  </script>
+</body>
+</html>
